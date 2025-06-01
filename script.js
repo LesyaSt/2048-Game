@@ -172,4 +172,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initializeGame();
 
+    let startX, startY, endX, endY;
+
+document.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
+});
+
+document.addEventListener("touchend", (e) => {
+  endX = e.changedTouches[0].clientX;
+  endY = e.changedTouches[0].clientY;
+
+  const deltaX = endX - startX;
+  const deltaY = endY - startY;
+
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    // горизонтальний свайп
+    if (deltaX > 30) move("ArrowRight");
+    else if (deltaX < -30) move("ArrowLeft");
+  } else {
+    // вертикальний свайп
+    if (deltaY > 30) move("ArrowDown");
+    else if (deltaY < -30) move("ArrowUp");
+  }
+});
+
 });
